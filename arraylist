@@ -1,0 +1,112 @@
+//Gift list
+//Lab 4 Data Structure
+
+//interface file
+
+#ifndef ArrayList_h_
+#define ArrayList_h_
+
+template <class T>
+class ArrayList
+{
+private:
+	T* data;
+	int size;
+	int capacity;
+	void shiftRight(int index); //shift all elements starting from index , by 1 position to right
+	void shiftLeft(int index); //shift all elements starting from index , by 1 position to left
+	static const int DEFAULT_CAPACITY = 20;
+	
+public:
+	ArrayList(int capacity = DEFAULT_CAPACITY);
+	void add(T item);
+	bool remove(int index);
+	bool add(int index, T item);
+	int getSize();
+	T& get(int index);
+	~ArrayList();//destructor
+};
+
+
+template <class T>
+ArrayList<T>::ArrayList(int capacity )
+{
+	this->capacity = capacity;
+	this->size = 0;
+	this->data = new T[capacity];
+}
+
+//add to end of list
+template <class T>
+void ArrayList<T>::add(T item) 
+{
+	if(size == capacity)
+	expand();
+	data[size++] = item;
+}
+
+template <class T>
+bool ArrayList<T>::remove(int index)
+{
+	if(index < 0 || index >= size)
+	return false;
+	shiftLeft(index+1);
+	size--;
+	return true;
+}
+
+//add at specified index, index should be with in the current size
+template <class T>
+bool ArrayList<T>::add(int index, T item) 
+{
+	if(index < 0 || index > size)
+	return false;
+	if(size == capacity)
+	expand();
+	if(index == size)
+	data[size] = item;
+	else
+	{
+		shiftRight(index);
+		data[index] = item;
+	}
+	size++;
+	return true;  
+}
+
+template <class T>
+int ArrayList<T>::getSize()
+{
+	return size;
+}
+
+//get item at specified index
+template <class T>
+T& ArrayList<T>::get(int index) 
+{
+	return data[index];
+}
+
+//shift all elements starting from index , by 1 position to right
+{
+template <class T>
+void ArrayList<T>::shiftRight(int index) 
+	for(int i = size-1; i >= index; i--)
+	data[i+1] = data[i];
+}
+
+//shift all elements starting from index , by 1 position to left
+template <class T>
+void ArrayList<T>::shiftLeft(int index) 
+{
+	for(int i = index; i < size; i++)
+	data[i-1] = data[i];
+}
+
+template <class T>
+ArrayList<T>::~ArrayList()
+{
+	delete []data;
+}
+
+#endif /* ArrayList_h */
