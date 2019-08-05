@@ -1,0 +1,48 @@
+//Gift list
+//Lab 4 Data Structure
+
+//main.cpp
+
+#include "ArrayList.h"
+#include <iostream>
+using namespace std;
+int main()
+{
+	
+	ArrayList<string> names;
+	ArrayList< ArrayList<string> > gifts; //each element in the list is itself a list of strings
+  
+	string name, gift;
+	int count = 0;
+	while(true)
+	{
+		
+		std::cout << "name for nice list: ";
+		getline(cin, name);
+		if(name.empty()) //no name specified, means no more data
+		break;
+		names.add(name);
+		std::cout << "add gifts for " << name << std::endl;
+		while(true)
+		{
+			std::cout << "gift: ";
+			getline(cin, gift);
+			if(gift.empty())
+			break;
+			gifts.get(count).add(gift);
+			}
+			count++;
+	}
+	std::cout << std::endl << std::endl;
+	std::cout << "The list contains:" << std::endl;
+	std::cout << std::endl;
+	for(int i = 0; i < names.getSize(); i++)
+	{
+		std::cout << names.get(i) << ": " ;
+		ArrayList<string>& g = gifts.get(i);
+		for(int j = 0; j < g.getSize(); j++)
+		std::cout << g.get(j) <<  "  ";
+		std::cout << std::endl;
+		}
+	return 0;
+}
