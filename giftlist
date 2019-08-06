@@ -25,6 +25,7 @@ int main()
 		std::cout << "add gifts for " << name << std::endl;
 		while(true)
 		{
+			
 			std::cout << "gift: ";
 			getline(cin, gift);
 			if(gift.empty())
